@@ -1,0 +1,23 @@
+version: '3'
+services:
+  ros2_humble:
+    build:
+      context: ./ros2-dockerfile
+      dockerfile: Dockerfile
+    network_mode: "host"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "5000:5000"
+
+  gazebo:
+    build:
+      context: ./gazebo-harmonic-dockerfile
+      dockerfile: Dockerfile
+    environment:
+      DISPLAY: ${DISPLAY}
+    network_mode: "host"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    ports:
+      - "5001:5001"

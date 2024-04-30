@@ -1,0 +1,30 @@
+# Use Ubuntu 22.04 Jammy as the base image
+FROM ubuntu:22.04
+
+# Set the working directory
+WORKDIR /root
+
+COPY ./init.sh $WORKDIR 
+
+RUN chmod +x init.sh
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install the necessary packages
+RUN apt-get update && apt-get install -y \ 
+    lsb-release \ 
+    wget \ 
+    gnupg \
+    x11-apps \
+    libxext-dev \
+    libxrender-dev \
+    libxtst-dev
+
+RUN wget https://packages.osrfoundation.org/gazebo.gpg -O /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg 
+RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" \
+    | tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null
+
+RUN apt-get update  
+RUN apt-get install -y ignition-fortress 
+
+CMD [ "./init.sh" ]
