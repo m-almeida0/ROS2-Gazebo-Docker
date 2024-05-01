@@ -4,10 +4,6 @@ FROM ubuntu:22.04
 # Set the working directory
 WORKDIR /root
 
-COPY ./init.sh $WORKDIR 
-
-RUN chmod +x init.sh
-
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install the necessary packages
@@ -27,4 +23,8 @@ RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/p
 RUN apt-get update  
 RUN apt-get install -y ignition-fortress 
 
-CMD [ "./init.sh" ]
+COPY  ./init.sh /root
+
+RUN chmod +x  /root/init.sh
+
+CMD [ "/root/init.sh" ]

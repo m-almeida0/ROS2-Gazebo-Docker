@@ -4,7 +4,7 @@ FROM ros:humble
 WORKDIR /ros2_humble_ws/src
 
 # Copy the package(s) to the workspace
-COPY ../ $WORKDIR
+COPY ./packages/* $WORKDIR
 
 # install ros package
 RUN apt-get update && apt-get install -y \
@@ -12,9 +12,8 @@ RUN apt-get update && apt-get install -y \
       ros-${ROS_DISTRO}-demo-nodes-py && \
     rm -rf /var/lib/apt/lists/*
 
-# launch ros package
-#CMD ["ros2", "launch", "demo_nodes_cpp", "talker_listener.launch.py"]
+COPY ./ros2_dockerfile/init.sh /root/init.sh
 
-RUN chmod +x init.sh
+RUN chmod +x /root/init.sh
 
-CMD [ "./init.sh"]
+CMD [ "/root/init.sh"]
