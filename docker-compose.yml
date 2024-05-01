@@ -12,7 +12,7 @@ services:
 
   gazebo:
     build:
-      context: ./gazebo-harmonic-dockerfile
+      context: ./gazebo-fortress-dockerfile
       dockerfile: Dockerfile
     environment:
       DISPLAY: ${DISPLAY}
