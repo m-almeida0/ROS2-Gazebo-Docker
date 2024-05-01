@@ -1,19 +1,23 @@
 version: '3'
 services:
-  ros2_humble:
+  ros2_humble_gazebo:
     build:
       context: .
-      dockerfile: ./ros2_dockerfile/Dockerfile.ros2
+      dockerfile: Dockerfile
+    container_name: ros2_humble_gazebo_fortress
     network_mode: "host"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-
-  gazebo:
-    build:
-      context: ./gazebo_dockerfile
-      dockerfile: Dockerfile.gazebo
     environment:
       DISPLAY: ${DISPLAY}
-    network_mode: "host"
     volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
       - /tmp/.X11-unix:/tmp/.X11-unix
+
+  #gazebo:
+  #  build:
+  #    context: ./gazebo_dockerfile
+  #    dockerfile: Dockerfile.gazebo
+  #  environment:
+  #    DISPLAY: ${DISPLAY}
+  #  network_mode: "host"
+  #  volumes:
+  #    - /tmp/.X11-unix:/tmp/.X11-unix
