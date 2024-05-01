@@ -11,13 +11,4 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /tmp/.X11-unix:/tmp/.X11-unix
-
-  #gazebo:
-  #  build:
-  #    context: ./gazebo_dockerfile
-  #    dockerfile: Dockerfile.gazebo
-  #  environment:
-  #    DISPLAY: ${DISPLAY}
-  #  network_mode: "host"
-  #  volumes:
-  #    - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./ros2_humble_ws:/ros2_humble_ws
