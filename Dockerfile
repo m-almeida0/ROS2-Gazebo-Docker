@@ -30,4 +30,15 @@ RUN apt-get update && apt-get install -y \
 
 RUN sudo apt-get install  -y ros-${ROS_DISTRO}-ros-gz
 
-CMD [ "/ros2_humble_ws/init.sh"]
+RUN export GAZEBO_MODEL_PATH=${GAZEBO_MODEL_PATH}:/ros2_humble_ws/description/models
+
+RUN apt install -y vim
+
+RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
+RUN echo "source /ros2_humble_ws/install/setup.bash" >> ~/.bashrc
+
+# An alias to source the bashrc file
+RUN  echo "alias sb='source ~/.bashrc'" >> ~/.bashrc
+
+
+CMD [ "/ros2_humble_ws/src/init.sh"]
