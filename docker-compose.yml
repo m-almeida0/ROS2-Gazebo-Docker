@@ -12,3 +12,4 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ./ros2_humble_ws:/ros2_humble_ws/src
+      #separar código de modelos, de preferência sem montar dois volumes
